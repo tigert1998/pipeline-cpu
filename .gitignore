@@ -1,0 +1,4 @@
+*.jou
+
+pipeline-cpu.cache
+pipeline-cpu.hw
