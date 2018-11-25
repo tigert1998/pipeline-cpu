@@ -8,7 +8,7 @@ module ALU(
     output wire zero
 );
 
-    wire [31: 0] result_and, result_or, result_add, result_sub, result_nor, result_slt, result_xor, result_srl;
+    wire [31: 0] result_and, result_or, result_add, result_sub, result_nor, result_slt, result_xor;
 
     assign result_and = A & B;
     assign result_or = A | B;
@@ -17,7 +17,6 @@ module ALU(
     assign result_nor = ~(A | B);
     assign result_slt = (A < B) ? 32'b1 : 32'b0;
     assign result_xor = A ^ B;
-    assign result_srl = B >> 1;
     assign zero = result == 32'b0;
 
     assign result = ALUOperation == 3'b000 ? result_and : (
@@ -25,9 +24,7 @@ module ALU(
             ALUOperation == 3'b010 ? result_add : (
                 ALUOperation == 3'b011 ? result_xor : (
                     ALUOperation == 3'b100 ? result_nor : (
-                        ALUOperation == 3'b101 ? result_srl : (
-                            ALUOperation == 3'b110 ? result_sub : result_slt
-                        )
+                        ALUOperation == 3'b110 ? result_sub : result_slt
                     )
                 )
             )
