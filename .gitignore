@@ -1,4 +1,6 @@
 *.jou
-
+pipeline-cpu.ip_user_files
 pipeline-cpu.cache
 pipeline-cpu.hw
+pipeline-cpu.runs
+pipeline-cpu.sim
