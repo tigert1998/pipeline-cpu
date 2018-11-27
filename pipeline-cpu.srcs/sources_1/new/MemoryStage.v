@@ -2,9 +2,12 @@
 
 module MemoryStage(
     input wire clk,
+    
     input wire [31: 0] EX_MEM_IR,
     input wire [31: 0] EX_MEM_ALUOutput,
     input wire [31: 0] EX_MEM_B,
+    input wire EX_MEM_Cond,
+    input wire [5: 0] EX_MEM_Opcode,
 
     output reg [31: 0] MEM_WB_IR,
     output reg [31: 0] MEM_WB_ALUOutput,
