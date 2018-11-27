@@ -6,10 +6,9 @@ module InstructionDecodeStage(
     input wire [31: 0] IF_ID_IR,
     input wire [31: 0] IF_ID_NPC,
     
-//    input wire [31: 0] MEM_WB_,
-//    input wire MEM_WB_RegWrite,
-//    input wire [31: 0] MEM_WB_ALUOutput,
-    
+    input wire [31: 0] MEM_WB_LMD,
+    input wire [4: 0] MEM_WB_WriteRegAddr,
+
     output reg [31: 0] ID_EX_A,
     output reg [31: 0] ID_EX_B,
     output wire [31: 0] ID_EX_NPC,
@@ -18,11 +17,11 @@ module InstructionDecodeStage(
     
     output reg ID_EX_Branch,
     output reg ID_EX_WriteReg,
-    output reg ID_EX_Regrt,
     output reg ID_EX_MemToReg,
     output reg ID_EX_WriteMem,
     output reg ID_EX_ALUImm,
-    output reg [2: 0] ID_EX_ALUOperation
+    output reg [2: 0] ID_EX_ALUOperation,
+    output reg [4: 0] ID_EX_WriteRegAddr
 );
 
 wire Branch, WriteReg, Regrt, MemToReg, WriteMem, ALUImm;
@@ -59,35 +58,18 @@ SignExtend s0(
     .o(o)
 );
 
-reg [31: 0] temp_Imm, temp_A, temp_B, temp_IR;
-reg temp_Branch, temp_WriteReg, temp_Regrt, temp_MemToReg, temp_WriteMem, temp_ALUImm;
-reg [2: 0] temp_ALUOperation;
-always @(negedge clk) begin
-    temp_Imm <= o;
-    temp_A <= ReadData1;
-    temp_B <= ReadData2;
-    temp_IR <= IF_ID_IR;
-    temp_Branch <= Branch;
-    temp_WriteReg <= WriteReg;
-    temp_Regrt <= Regrt;
-    temp_MemToReg <= MemToReg;
-    temp_WriteMem <= WriteMem;
-    temp_ALUImm <= ALUImm;
-    temp_ALUOperation <= ALUOperation;
-end
-
 always @(posedge clk) begin
-    ID_EX_Imm <= temp_Imm;
-    ID_EX_A <= temp_A;
-    ID_EX_B <= temp_B;
-    ID_EX_IR <= temp_IR;
-    ID_EX_Branch <= temp_Branch;
-    ID_EX_WriteReg <= temp_WriteReg;
-    ID_EX_Regrt <= temp_Regrt;
-    ID_EX_MemToReg <= temp_MemToReg;
-    ID_EX_WriteMem <= temp_WriteMem;
-    ID_EX_ALUImm <= temp_ALUImm;
-    ID_EX_ALUOperation <= temp_ALUOperation;
+    ID_EX_Imm <= o;
+    ID_EX_A <= ReadData1;
+    ID_EX_B <= ReadData2;
+    ID_EX_IR <= IF_ID_IR;
+    ID_EX_Branch <= Branch;
+    ID_EX_WriteReg <= WriteReg;
+    ID_EX_MemToReg <= MemToReg;
+    ID_EX_WriteMem <= WriteMem;
+    ID_EX_ALUImm <= ALUImm;
+    ID_EX_ALUOperation <= ALUOperation;
+    ID_EX_WriteRegAddr <= Regrt ? IF_ID_IR[20: 16] : IF_ID_IR[15: 11];
 end
 
 endmodule
