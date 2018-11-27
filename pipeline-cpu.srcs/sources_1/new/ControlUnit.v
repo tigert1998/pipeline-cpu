@@ -4,7 +4,7 @@ module ControlUnit(
     input wire [31: 0] instruction,
     
     output wire Branch,
-    output wire WriteReg,
+    output wire RegWrite,
     output wire Regrt,
     output wire MemToReg,
     output wire WriteMem,
@@ -24,7 +24,7 @@ assign SW = Opcode == 6'b10_1011;
 assign ALUOp = {R, Branch};
 
 assign Branch = BEQ || BNE;
-assign WriteReg = R || LW;
+assign RegWrite = R || LW;
 assign Regrt = LW || SW;
 assign MemToReg = LW;
 assign WriteMem = SW;

@@ -37,6 +37,8 @@ always @(posedge clk) begin
     MEM_WB_ALUOutput <= EX_MEM_ALUOutput;
     MEM_WB_LMD <= douta;
     MEM_WB_WriteRegAddr <= EX_MEM_WriteRegAddr;
+    MEM_WB_WriteReg <= EX_MEM_WriteReg;
+    MEM_WB_WriteData <= EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;
 end
 
 endmodule

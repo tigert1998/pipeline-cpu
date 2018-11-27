@@ -10,21 +10,21 @@ module ExecutionStage(
     input wire [31: 0] ID_EX_Imm,
     
     input wire ID_EX_Branch,
-    input wire ID_EX_WriteReg,
+    input wire ID_EX_RegWrite,
     input wire ID_EX_MemToReg,
     input wire ID_EX_WriteMem,
     input wire ID_EX_ALUImm,
     input wire [2: 0] ID_EX_ALUOperation,
-    input wire [4: 0] ID_EX_WriteRegAddr,
+    input wire [4: 0] ID_EX_RegWriteAddr,
 
     output reg [31: 0] EX_MEM_IR,
     output reg [31: 0] EX_MEM_ALUOutput,
     output reg [31: 0] EX_MEM_B,
     output reg EX_MEM_Cond,
     output reg [5: 0] EX_MEM_Opcode,
-    output reg [4: 0] EX_MEM_WriteRegAddr,
+    output reg [4: 0] EX_MEM_RegWriteAddr,
     output reg EX_MEM_WriteMem,
-    output reg EX_MEM_WriteReg,
+    output reg EX_MEM_RegWrite,
     output reg EX_MEM_MemToReg
 );
 
@@ -45,9 +45,9 @@ always @(posedge clk) begin
     EX_MEM_B <= ID_EX_B;
     EX_MEM_Cond <= (ID_EX_IR[31: 26] == 6'b00_0100) ? zero : !zero;
     EX_MEM_Opcode <= ID_EX_IR[31: 26];
-    EX_MEM_WriteRegAddr <= ID_EX_WriteRegAddr;
+    EX_MEM_RegWriteAddr <= ID_EX_RegWriteAddr;
     EX_MEM_WriteMem <= ID_EX_WriteMem;
-    EX_MEM_WriteReg <= ID_EX_WriteReg;
+    EX_MEM_RegWrite <= ID_EX_RegWrite;
     EX_MEM_MemToReg <= ID_EX_MemToReg;
 end
 
