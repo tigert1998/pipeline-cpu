@@ -3,17 +3,23 @@
 module InstructionFetchStage(
     input wire [31: 0] clk,
     input wire [31: 0] PC,
-    output wire [31: 0] IF_ID_IR,
+    output reg [31: 0] IF_ID_IR,
     output wire [31: 0] IF_ID_NPC
 );
 
+wire [31: 0] douta;
+
 InstructionMemory i0(
     .addra(PC),
-    .clka(clk),
+    .clka(~clk),
     .dina(0),
-    .douta(IF_ID_IR),
+    .douta(douta),
     .ena(1),
     .wea(0)
 );
+
+always @(posedge clk) begin
+    IF_ID_IR = douta;
+end
   
 endmodule
