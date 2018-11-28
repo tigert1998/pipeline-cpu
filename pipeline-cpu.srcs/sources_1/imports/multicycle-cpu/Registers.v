@@ -3,7 +3,7 @@
 module Registers(
     input wire clk,
     input wire rst,
-    input wire RegWrite,
+    input wire WriteReg,
     input wire [4: 0] ReadRegAddr1,
     input wire [4: 0] ReadRegAddr2,
     input wire [4: 0] ReadRegAddr3,
@@ -27,7 +27,7 @@ module Registers(
                 registers[i] = 32'd0;
             end
         end else if (clk) begin
-            if (RegWrite)
+            if (WriteReg)
                 registers[WriteRegAddr] = WriteData;
         end
     end

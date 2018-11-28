@@ -20,6 +20,7 @@ InstructionMemory i0(
 
 always @(posedge clk) begin
     IF_ID_IR = douta;
+    // IF_ID_NPC
 end
   
 endmodule

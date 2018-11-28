@@ -56,9 +56,6 @@ ExecutionStage s2(
 MemoryStage s3(
 );
 
-// WB
-WriteBackStage s4();
-
 always @(posedge clk) begin
     // IF
     
