@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
--- Date        : Sun Nov 25 19:53:44 2018
+-- Date        : Sun Dec  2 17:41:50 2018
 -- Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
 -- Command     : write_vhdl -force -mode funcsim
 --               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/InstructionMemory/InstructionMemory_sim_netlist.vhdl
@@ -14,7 +14,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity InstructionMemory_blk_mem_gen_prim_wrapper is
+entity InstructionMemory_blk_mem_gen_prim_wrapper_init is
   port (
     douta : out STD_LOGIC_VECTOR ( 31 downto 0 );
     clka : in STD_LOGIC;
@@ -24,10 +24,10 @@ entity InstructionMemory_blk_mem_gen_prim_wrapper is
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_prim_wrapper : entity is "blk_mem_gen_prim_wrapper";
-end InstructionMemory_blk_mem_gen_prim_wrapper;
+  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_prim_wrapper_init : entity is "blk_mem_gen_prim_wrapper_init";
+end InstructionMemory_blk_mem_gen_prim_wrapper_init;
 
-architecture STRUCTURE of InstructionMemory_blk_mem_gen_prim_wrapper is
+architecture STRUCTURE of InstructionMemory_blk_mem_gen_prim_wrapper_init is
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_32\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_33\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_34\ : STD_LOGIC;
@@ -47,8 +47,8 @@ begin
       INITP_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INITP_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INITP_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_00 => X"0189602401695822014950200108682001086020010858208D0E00018D090000",
+      INIT_01 => X"0000000000000000000000000000000000000000000000001149FFF801A96827",
       INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -123,7 +123,7 @@ begin
       IS_RSTREGARSTREG_INVERTED => '0',
       IS_RSTREGB_INVERTED => '0',
       RAM_MODE => "TDP",
-      RDADDR_COLLISION_HWCONFIG => "DELAYED_WRITE",
+      RDADDR_COLLISION_HWCONFIG => "PERFORMANCE",
       READ_WIDTH_A => 18,
       READ_WIDTH_B => 18,
       RSTREG_PRIORITY_A => "REGCE",
@@ -188,7 +188,7 @@ end InstructionMemory_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_prim_width is
 begin
-\prim_noinit.ram\: entity work.InstructionMemory_blk_mem_gen_prim_wrapper
+\prim_init.ram\: entity work.InstructionMemory_blk_mem_gen_prim_wrapper_init
      port map (
       addra(8 downto 0) => addra(8 downto 0),
       clka => clka,
@@ -440,11 +440,11 @@ entity InstructionMemory_blk_mem_gen_v8_4_1 is
   attribute C_INIT_FILE : string;
   attribute C_INIT_FILE of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "InstructionMemory.mem";
   attribute C_INIT_FILE_NAME : string;
-  attribute C_INIT_FILE_NAME of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "no_coe_file_loaded";
+  attribute C_INIT_FILE_NAME of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "InstructionMemory.mif";
   attribute C_INTERFACE_TYPE : integer;
   attribute C_INTERFACE_TYPE of InstructionMemory_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_LOAD_INIT_FILE : integer;
-  attribute C_LOAD_INIT_FILE of InstructionMemory_blk_mem_gen_v8_4_1 : entity is 0;
+  attribute C_LOAD_INIT_FILE of InstructionMemory_blk_mem_gen_v8_4_1 : entity is 1;
   attribute C_MEM_TYPE : integer;
   attribute C_MEM_TYPE of InstructionMemory_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_MUX_PIPELINE_STAGES : integer;
@@ -759,11 +759,11 @@ architecture STRUCTURE of InstructionMemory is
   attribute C_INIT_FILE : string;
   attribute C_INIT_FILE of U0 : label is "InstructionMemory.mem";
   attribute C_INIT_FILE_NAME : string;
-  attribute C_INIT_FILE_NAME of U0 : label is "no_coe_file_loaded";
+  attribute C_INIT_FILE_NAME of U0 : label is "InstructionMemory.mif";
   attribute C_INTERFACE_TYPE : integer;
   attribute C_INTERFACE_TYPE of U0 : label is 0;
   attribute C_LOAD_INIT_FILE : integer;
-  attribute C_LOAD_INIT_FILE of U0 : label is 0;
+  attribute C_LOAD_INIT_FILE of U0 : label is 1;
   attribute C_MEM_TYPE : integer;
   attribute C_MEM_TYPE of U0 : label is 0;
   attribute C_MUX_PIPELINE_STAGES : integer;

@@ -33,7 +33,7 @@ wire zero;
 
 ALU a1(
     .A(ID_EX_A),
-    .B(ID_EX_ALUImm ? ID_EX_B : ID_EX_Imm),
+    .B(ID_EX_ALUImm ? ID_EX_Imm : ID_EX_B),
     .ALUOperation(ID_EX_ALUOperation),
     .result(ALUOutput),
     .zero(zero)

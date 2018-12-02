@@ -5,67 +5,118 @@ module Top(
     input wire rst
 );
 
-// pipeline registers
 reg [31: 0] PC;
 
-reg [31: 0] IF_ID_IR, IF_ID_NPC;
+// pipeline registers
+wire [31: 0] IF_ID_IR, IF_ID_NPC;
 
-reg [31: 0] ID_EX_A, ID_EX_B, ID_EX_NPC, ID_EX_IR, ID_EX_Imm;
+wire [31: 0] ID_EX_A, ID_EX_B, ID_EX_NPC, ID_EX_IR, ID_EX_Imm;
+wire ID_EX_Branch, ID_EX_WriteReg, ID_EX_MemToReg, ID_EX_WriteMem, ID_EX_ALUImm;
+wire [2: 0] ID_EX_ALUOperation;
+wire [4: 0] ID_EX_WriteRegAddr;
 
-reg [31: 0] EX_MEM_IR, EX_MEM_ALUOutput, EX_MEM_B, EX_MEM_Cond, EX_MEM_Opcode;
+wire [31: 0] EX_MEM_IR, EX_MEM_ALUOutput, EX_MEM_B;
+wire EX_MEM_Cond;
+wire [5: 0] EX_MEM_Opcode;
+wire [4: 0] EX_MEM_WriteRegAddr;
+wire EX_MEM_WriteMem, EX_MEM_WriteReg, EX_MEM_MemToReg;
 
-reg [31: 0] MEM_WB_IR, MEM_WB_ALUOutput, MEM_WB_LMD;
+wire [31: 0] MEM_WB_IR, MEM_WB_ALUOutput, MEM_WB_LMD;
+wire [4: 0] MEM_WB_WriteRegAddr;
+wire MEM_WB_WriteReg;
+wire [31: 0] MEM_WB_WriteData;
 
 // IF
 InstructionFetchStage s0(
     .clk(clk),
     .PC(PC),
-    .IF_ID_IR(),
-    .IF_ID_NPC()
+    .IF_ID_IR(IF_ID_IR),
+    .IF_ID_NPC(IF_ID_NPC)
 );
 
 // ID
 InstructionDecodeStage s1(
     .rst(rst),
-    .clk(),
-    .IF_ID_IR(),
-    .IF_ID_NPC(),
-    .ID_EX_A(), 
-    .ID_EX_B(), 
-    .ID_EX_NPC(), 
-    .ID_EX_IR(), 
-    .ID_EX_Imm()
+    .clk(clk),
+    .IF_ID_IR(IF_ID_IR),
+    .IF_ID_NPC(IF_ID_NPC),
+    
+    .MEM_WB_WriteRegAddr(MEM_WB_WriteRegAddr),
+    .MEM_WB_WriteReg(MEM_WB_WriteReg),
+    .MEM_WB_WriteData(MEM_WB_WriteData),
+
+    .ID_EX_A(ID_EX_A),
+    .ID_EX_B(ID_EX_B),
+    .ID_EX_NPC(ID_EX_NPC),
+    .ID_EX_IR(ID_EX_IR),
+    .ID_EX_Imm(ID_EX_Imm),
+    
+    .ID_EX_Branch(ID_EX_Branch),
+    .ID_EX_WriteReg(ID_EX_WriteReg),
+    .ID_EX_MemToReg(ID_EX_MemToReg),
+    .ID_EX_WriteMem(ID_EX_WriteMem),
+    .ID_EX_ALUImm(ID_EX_ALUImm),
+    .ID_EX_ALUOperation(ID_EX_ALUOperation),
+    .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr)
 );
 
 // EX
 ExecutionStage s2(
-    .ID_EX_A(),
-    .ID_EX_B(),
-    .ID_EX_NPC(), 
-    .ID_EX_IR(), 
-    .ID_EX_Imm(),
+    .clk(clk),
     
-    .EX_MEM_IR(),
-    .EX_MEM_ALUOutput(),
-    .EX_MEM_B(),
-    .EX_MEM_Cond(), 
-    .EX_MEM_Opcode()
+    .ID_EX_A(ID_EX_A),
+    .ID_EX_B(ID_EX_B),
+    .ID_EX_NPC(ID_EX_NPC),
+    .ID_EX_IR(ID_EX_IR), 
+    .ID_EX_Imm(ID_EX_Imm),
+    
+    .ID_EX_Branch(ID_EX_Branch),
+    .ID_EX_WriteReg(ID_EX_WriteReg),
+    .ID_EX_MemToReg(ID_EX_MemToReg),
+    .ID_EX_WriteMem(ID_EX_WriteMem),
+    .ID_EX_ALUImm(ID_EX_ALUImm),
+    .ID_EX_ALUOperation(ID_EX_ALUOperation),
+    .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
+
+    .EX_MEM_IR(EX_MEM_IR),
+    .EX_MEM_ALUOutput(EX_MEM_ALUOutput),
+    .EX_MEM_B(EX_MEM_B),
+    .EX_MEM_Cond(EX_MEM_Cond),
+    .EX_MEM_Opcode(EX_MEM_Opcode),
+    .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
+    .EX_MEM_WriteMem(EX_MEM_WriteMem),
+    .EX_MEM_WriteReg(EX_MEM_WriteReg),
+    .EX_MEM_MemToReg(EX_MEM_MemToReg)
 );
 
 // MEM
 MemoryStage s3(
+    .clk(clk),
+    
+    .EX_MEM_IR(EX_MEM_IR),
+    .EX_MEM_ALUOutput(EX_MEM_ALUOutput),
+    .EX_MEM_B(EX_MEM_B),
+    .EX_MEM_Cond(EX_MEM_Cond),
+    .EX_MEM_Opcode(EX_MEM_Opcode),
+    .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
+    .EX_MEM_WriteMem(EX_MEM_WriteMem),
+    .EX_MEM_WriteReg(EX_MEM_WriteReg),
+    .EX_MEM_MemToReg(EX_MEM_MemToReg),
+
+    .MEM_WB_IR(MEM_WB_IR),
+    .MEM_WB_ALUOutput(MEM_WB_ALUOutput),
+    .MEM_WB_LMD(MEM_WB_LMD),
+    .MEM_WB_WriteRegAddr(MEM_WB_WriteRegAddr),
+    .MEM_WB_WriteReg(MEM_WB_WriteReg),
+    .MEM_WB_WriteData(MEM_WB_WriteData)
 );
 
-always @(posedge clk) begin
-    // IF
-    
-    // ID
-    
-    // EX
-    
-    // MEM
-    
-    // WB
+always @(posedge clk or posedge rst) begin
+    if (rst) begin
+        PC = 0;
+    end else begin
+        PC = PC + 1;
+    end
 end
 
 endmodule
