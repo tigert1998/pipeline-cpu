@@ -35,7 +35,8 @@ ControlUnit c0(
     .MemToReg(MemToReg),
     .WriteMem(WriteMem),
     .ALUImm(ALUImm),
-    .ALUOperation(ALUOperation)
+    .ALUOperation(ALUOperation),
+    .ShiftAmount()
 );
 
 wire [31: 0] ReadData1, ReadData2;

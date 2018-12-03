@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module InstructionFetchStage(
-    input wire [31: 0] clk,
+    input wire clk,
     input wire [31: 0] PC,
     output reg [31: 0] IF_ID_IR,
     output wire [31: 0] IF_ID_NPC
