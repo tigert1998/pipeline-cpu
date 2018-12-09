@@ -11,8 +11,9 @@ reg [31: 0] PC;
 wire [31: 0] IF_ID_IR, IF_ID_NPC;
 
 wire [31: 0] ID_EX_A, ID_EX_B, ID_EX_NPC, ID_EX_IR, ID_EX_Imm;
-wire ID_EX_Branch, ID_EX_WriteReg, ID_EX_MemToReg, ID_EX_WriteMem, ID_EX_ALUImm;
-wire [2: 0] ID_EX_ALUOperation;
+wire [4: 0] ID_EX_ShiftAmount;
+wire ID_EX_Branch, ID_EX_WriteReg, ID_EX_MemToReg, ID_EX_WriteMem, ID_EX_ALUSA, ID_EX_ALUImm;
+wire [3: 0] ID_EX_ALUOperation;
 wire [4: 0] ID_EX_WriteRegAddr;
 
 wire [31: 0] EX_MEM_IR, EX_MEM_ALUOutput, EX_MEM_B;
@@ -50,11 +51,13 @@ InstructionDecodeStage s1(
     .ID_EX_NPC(ID_EX_NPC),
     .ID_EX_IR(ID_EX_IR),
     .ID_EX_Imm(ID_EX_Imm),
+    .ID_EX_ShiftAmount(ID_EX_ShiftAmount),
     
     .ID_EX_Branch(ID_EX_Branch),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteMem(ID_EX_WriteMem),
+    .ID_EX_ALUSA(ID_EX_ALUSA),
     .ID_EX_ALUImm(ID_EX_ALUImm),
     .ID_EX_ALUOperation(ID_EX_ALUOperation),
     .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr)
@@ -63,17 +66,20 @@ InstructionDecodeStage s1(
 // EX
 ExecutionStage s2(
     .clk(clk),
+    .rst(rst),
     
     .ID_EX_A(ID_EX_A),
     .ID_EX_B(ID_EX_B),
     .ID_EX_NPC(ID_EX_NPC),
     .ID_EX_IR(ID_EX_IR), 
     .ID_EX_Imm(ID_EX_Imm),
+    .ID_EX_ShiftAmount(ID_EX_ShiftAmount),
     
     .ID_EX_Branch(ID_EX_Branch),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteMem(ID_EX_WriteMem),
+    .ID_EX_ALUSA(ID_EX_ALUSA),
     .ID_EX_ALUImm(ID_EX_ALUImm),
     .ID_EX_ALUOperation(ID_EX_ALUOperation),
     .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
@@ -92,6 +98,7 @@ ExecutionStage s2(
 // MEM
 MemoryStage s3(
     .clk(clk),
+    .rst(rst),
     
     .EX_MEM_IR(EX_MEM_IR),
     .EX_MEM_ALUOutput(EX_MEM_ALUOutput),

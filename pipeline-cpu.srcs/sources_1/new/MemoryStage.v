@@ -2,6 +2,7 @@
 
 module MemoryStage(
     input wire clk,
+    input wire rst,
     
     input wire [31: 0] EX_MEM_IR,
     input wire [31: 0] EX_MEM_ALUOutput,
@@ -32,13 +33,17 @@ DataMemory d0(
     .wea(EX_MEM_WriteMem)
 );
 
-always @(posedge clk) begin
-    MEM_WB_IR <= EX_MEM_IR;
-    MEM_WB_ALUOutput <= EX_MEM_ALUOutput;
-    MEM_WB_LMD <= douta;
-    MEM_WB_WriteRegAddr <= EX_MEM_WriteRegAddr;
-    MEM_WB_WriteReg <= EX_MEM_WriteReg;
-    MEM_WB_WriteData <= EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;
+always @(posedge clk or posedge rst) begin
+    if (rst) begin
+        MEM_WB_WriteReg <= 0;
+    end else begin
+        MEM_WB_IR <= EX_MEM_IR;
+        MEM_WB_ALUOutput <= EX_MEM_ALUOutput;
+        MEM_WB_LMD <= douta;
+        MEM_WB_WriteRegAddr <= EX_MEM_WriteRegAddr;
+        MEM_WB_WriteReg <= EX_MEM_WriteReg;
+        MEM_WB_WriteData <= EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;
+    end
 end
 
 endmodule
