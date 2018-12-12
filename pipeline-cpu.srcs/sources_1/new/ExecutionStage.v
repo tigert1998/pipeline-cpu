@@ -4,6 +4,7 @@ module ExecutionStage(
     input wire clk,
     input wire rst,
     
+    // input pipeline registers
     input wire [31: 0] ID_EX_A,
     input wire [31: 0] ID_EX_B,
     input wire [31: 0] ID_EX_NPC,
@@ -19,7 +20,10 @@ module ExecutionStage(
     input wire ID_EX_ALUImm,
     input wire [3: 0] ID_EX_ALUOperation,
     input wire [4: 0] ID_EX_WriteRegAddr,
+    
+    input wire ID_EX_Bubble,
 
+    // output pipeline registers
     output reg [31: 0] EX_MEM_IR,
     output reg [31: 0] EX_MEM_ALUOutput,
     output reg [31: 0] EX_MEM_B,
@@ -28,7 +32,9 @@ module ExecutionStage(
     output reg [4: 0] EX_MEM_WriteRegAddr,
     output reg EX_MEM_WriteMem,
     output reg EX_MEM_WriteReg,
-    output reg EX_MEM_MemToReg
+    output reg EX_MEM_MemToReg,
+    
+    output reg EX_MEM_Bubble
 );
 
 wire [31: 0] ALUOutput;
@@ -43,10 +49,11 @@ ALU a1(
 );
 
 always @(posedge clk or posedge rst) begin
-    if (rst) begin
+    if (rst || ID_EX_Bubble) begin
         EX_MEM_Cond <= 0;
         EX_MEM_WriteMem <= 0;
         EX_MEM_WriteReg <= 0;
+        EX_MEM_Bubble <= 1;
     end else begin
         EX_MEM_IR <= ID_EX_IR;
         EX_MEM_ALUOutput <= ALUOutput;
@@ -57,6 +64,7 @@ always @(posedge clk or posedge rst) begin
         EX_MEM_WriteMem <= ID_EX_WriteMem;
         EX_MEM_WriteReg <= ID_EX_WriteReg;
         EX_MEM_MemToReg <= ID_EX_MemToReg;
+        EX_MEM_Bubble <= 0;
     end
 end
 

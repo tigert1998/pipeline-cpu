@@ -4,6 +4,7 @@ module MemoryStage(
     input wire clk,
     input wire rst,
     
+    // input pipeline registers
     input wire [31: 0] EX_MEM_IR,
     input wire [31: 0] EX_MEM_ALUOutput,
     input wire [31: 0] EX_MEM_B,
@@ -13,10 +14,10 @@ module MemoryStage(
     input wire EX_MEM_WriteMem,
     input wire EX_MEM_WriteReg,
     input wire EX_MEM_MemToReg,
+    input wire EX_MEM_Bubble,
 
+    // output pipeline registers
     output reg [31: 0] MEM_WB_IR,
-    output reg [31: 0] MEM_WB_ALUOutput,
-    output reg [31: 0] MEM_WB_LMD,
     output reg [4: 0] MEM_WB_WriteRegAddr,
     output reg MEM_WB_WriteReg,
     output reg [31: 0] MEM_WB_WriteData
@@ -34,12 +35,10 @@ DataMemory d0(
 );
 
 always @(posedge clk or posedge rst) begin
-    if (rst) begin
+    if (rst || EX_MEM_Bubble) begin
         MEM_WB_WriteReg <= 0;
     end else begin
         MEM_WB_IR <= EX_MEM_IR;
-        MEM_WB_ALUOutput <= EX_MEM_ALUOutput;
-        MEM_WB_LMD <= douta;
         MEM_WB_WriteRegAddr <= EX_MEM_WriteRegAddr;
         MEM_WB_WriteReg <= EX_MEM_WriteReg;
         MEM_WB_WriteData <= EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;

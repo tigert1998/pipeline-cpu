@@ -5,12 +5,14 @@ module ControlUnit(
     
     output wire Branch,
     output wire WriteReg,
-    output wire Regrt,
+    output wire RtAsDestination,
     output wire MemToReg,
     output wire WriteMem,
     output wire ALUSA,
     output wire ALUImm,
     output wire SignExtendImm,
+    output wire ReadRs,
+    output wire ReadRt,
     output reg [3: 0] ALUOperation,
     output wire [4: 0] ShiftAmount
 );
@@ -63,12 +65,18 @@ assign Branch = BEQ || BNE;
 assign WriteReg =
     SLL || SRL || SRA || SLLV || SRLV || SRAV || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
     ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW;
-assign Regrt = ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW;
+assign RtAsDestination = ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW;
 assign MemToReg = LW;
 assign WriteMem = SW;
 assign ALUSA = SLL || SRL || SRA || LUI;
 assign ALUImm = ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW || SW;
 assign SignExtendImm = ADDI || ADDIU || SLTI || LW || SW;
+assign ReadRs =
+    SLLV || SRLV || SRAV || JR || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
+    BEQ || BNE || ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LW || SW;
+assign ReadRt =
+    SLL || SRL || SRA || SLLV || SRLV || SRAV || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
+    BEQ || BNE || SW;
 
 always @* begin
     if (AND || ANDI) begin
