@@ -13,6 +13,8 @@ module ControlUnit(
     output wire SignExtendImm,
     output wire ReadRs,
     output wire ReadRt,
+    output wire GotoSeries,
+    output reg [4: 0] InstructionType,
     output reg [3: 0] ALUOperation,
     output wire [4: 0] ShiftAmount
 );
@@ -64,7 +66,7 @@ assign JAL = Opcode == 6'b00_0011;
 assign Branch = BEQ || BNE;
 assign WriteReg =
     SLL || SRL || SRA || SLLV || SRLV || SRAV || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
-    ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW;
+    ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW || JAL;
 assign RtAsDestination = ADDI || ADDIU || SLTI || SLTIU || ANDI || ORI || XORI || LUI || LW;
 assign MemToReg = LW;
 assign WriteMem = SW;
@@ -77,6 +79,7 @@ assign ReadRs =
 assign ReadRt =
     SLL || SRL || SRA || SLLV || SRLV || SRAV || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
     BEQ || BNE || SW;
+assign GotoSeries = JR || Branch || J || JAL;
 
 always @* begin
     if (AND || ANDI) begin
@@ -103,6 +106,72 @@ always @* begin
         ALUOperation = 4'd10;
     end else begin
         ALUOperation = 4'dx;
+    end
+end
+
+always @* begin
+    if (SLL) begin
+        InstructionType <= 5'd0;
+    end else if (SRL) begin
+        InstructionType <= 5'd1;
+    end else if (SRA) begin
+        InstructionType <= 5'd2;
+    end else if (SLLV) begin
+        InstructionType <= 5'd3;
+    end else if (SRLV) begin
+        InstructionType <= 5'd4;
+    end else if (SRAV) begin
+        InstructionType <= 5'd5;
+    end else if (JR) begin
+        InstructionType <= 5'd6;
+    end else if (ADD) begin
+        InstructionType <= 5'd7;
+    end else if (ADDU) begin
+        InstructionType <= 5'd8;
+    end else if (SUB) begin
+        InstructionType <= 5'd9;
+    end else if (SUBU) begin
+        InstructionType <= 5'd10;
+    end else if (AND) begin
+        InstructionType <= 5'd11;
+    end else if (OR) begin
+        InstructionType <= 5'd12;
+    end else if (XOR) begin
+        InstructionType <= 5'd13;
+    end else if (NOR) begin
+        InstructionType <= 5'd14;
+    end else if (SLT) begin
+        InstructionType <= 5'd15;
+    end else if (SLTU) begin
+        InstructionType <= 5'd16;
+    end else if (BEQ) begin
+        InstructionType <= 5'd17;
+    end else if (BNE) begin
+        InstructionType <= 5'd18;
+    end else if (ADDI) begin
+        InstructionType <= 5'd19;
+    end else if (ADDIU) begin
+        InstructionType <= 5'd20;
+    end else if (SLTI) begin
+        InstructionType <= 5'd21;
+    end else if (SLTIU) begin
+        InstructionType <= 5'd22;
+    end else if (ANDI) begin
+        InstructionType <= 5'd23;
+    end else if (ORI) begin
+        InstructionType <= 5'd24;
+    end else if (XORI) begin
+        InstructionType <= 5'd25;
+    end else if (LUI) begin
+        InstructionType <= 5'd26;
+    end else if (LW) begin
+        InstructionType <= 5'd27;
+    end else if (SW) begin
+        InstructionType <= 5'd28;
+    end else if (J) begin
+        InstructionType <= 5'd29;
+    end else if (JAL) begin
+        InstructionType <= 5'd30;
     end
 end
 
