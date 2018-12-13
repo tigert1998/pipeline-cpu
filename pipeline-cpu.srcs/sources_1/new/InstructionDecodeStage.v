@@ -14,6 +14,7 @@ module InstructionDecodeStage(
     input wire EX_MEM_WriteReg,
     input wire EX_MEM_Bubble,
     
+    input wire MEM_WB_GotoSeries,
     input wire [4: 0] MEM_WB_WriteRegAddr,
     input wire MEM_WB_WriteReg,
     input wire [31: 0] MEM_WB_WriteData,
@@ -46,6 +47,7 @@ wire ReadRs, ReadRt, GotoSeries;
 wire [4: 0] InstructionType;
 wire [3: 0] ALUOperation;
 wire [4: 0] ShiftAmount;
+
 ControlUnit c0(
     .Instruction(IF_ID_IR),
     .Branch(Branch),
@@ -109,7 +111,7 @@ StallControl s1(
 );
 
 always @(posedge clk or posedge rst) begin
-    if (rst || stall || IF_ID_Bubble) begin
+    if (rst || stall || IF_ID_Bubble || MEM_WB_GotoSeries) begin
         ID_EX_WriteReg <= 0;
         ID_EX_WriteMem <= 0;
         ID_EX_GotoSeries <= 0;
@@ -120,23 +122,19 @@ always @(posedge clk or posedge rst) begin
         ID_EX_B <= ReadData2;
         
         if (GotoSeries) begin
-            if (InstructionType == 5'd6) begin
-                // JR
-                ID_EX_NPC <= ReadData1;
-            end else if (InstructionType == 5'd17) begin
-                // BEQ
-                ID_EX_NPC <= (ReadData1 == ReadData2) ? IF_ID_NPC + SignExtendedImm << 2 : IF_ID_NPC;
-            end else if (InstructionType == 5'd18) begin
-                // BNE
-                ID_EX_NPC <= (ReadData1 != ReadData2) ? IF_ID_NPC + SignExtendedImm << 2 : IF_ID_NPC;
-            end if (InstructionType == 5'd29 || InstructionType == 5'd30) begin
-                // J or JAL
-                ID_EX_NPC <= {IF_ID_NPC[31: 28], IF_ID_IR[25: 0], 2'b00};
-            end else begin
-                ID_EX_NPC = 32'dx;
-            end
-        end
-        
+            case (InstructionType)
+                5'd6:
+                    ID_EX_NPC <= ReadData1;
+                5'd17:
+                    ID_EX_NPC <= (ReadData1 == ReadData2) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                5'd18:
+                    ID_EX_NPC <= (ReadData1 != ReadData2) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                5'd29, 5'd30:
+                    ID_EX_NPC <= {IF_ID_NPC[31: 28], IF_ID_IR[25: 0], 2'b00};
+                default:
+                    ID_EX_NPC <= 32'dx;
+            endcase
+        end        
         ID_EX_IR <= IF_ID_IR;
         ID_EX_Imm <= SignExtendImm ? SignExtendedImm : ZeroExtendedImm;
         ID_EX_ShiftAmount <= ShiftAmount;

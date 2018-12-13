@@ -19,9 +19,9 @@ wire [31: 0] douta;
 InstructionMemory i0(
     .addra(MEM_WB_GotoSeries ? MEM_WB_NPC[10: 2] : PC[10: 2]),
     .clka(~clk),
-    .dina(0),
+    .dina(1'b0),
     .douta(douta),
-    .ena(1),
+    .ena(1'b1),
     .wea(0)
 );
 

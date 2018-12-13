@@ -62,6 +62,7 @@ InstructionDecodeStage s1(
     .EX_MEM_WriteReg(EX_MEM_WriteReg),
     .EX_MEM_Bubble(EX_MEM_Bubble),
     
+    .MEM_WB_GotoSeries(MEM_WB_GotoSeries),
     .MEM_WB_WriteRegAddr(MEM_WB_WriteRegAddr),
     .MEM_WB_WriteReg(MEM_WB_WriteReg),
     .MEM_WB_WriteData(MEM_WB_WriteData),
