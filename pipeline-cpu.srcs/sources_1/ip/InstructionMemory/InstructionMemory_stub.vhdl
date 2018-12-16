@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
--- Date        : Thu Dec 13 09:41:23 2018
+-- Date        : Fri Dec 14 09:24:25 2018
 -- Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/InstructionMemory/InstructionMemory_stub.vhdl
