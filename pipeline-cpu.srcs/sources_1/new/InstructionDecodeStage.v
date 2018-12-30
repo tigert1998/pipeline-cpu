@@ -92,9 +92,9 @@ ZeroExtend z0(
 );
 
 StallControl s1(
-    .rs_used(ReadRs),
+    .ReadRs(ReadRs),
     .rs(IF_ID_IR[25: 21]),
-    .rt_used(ReadRt),
+    .ReadRt(ReadRt),
     .rt(IF_ID_IR[20: 16]),
     
     .ID_EX_GotoSeries(ID_EX_GotoSeries),
