@@ -26,8 +26,10 @@ module MemoryStage(
     output reg MEM_WB_GotoSeries,
     
     // special output
-    output wire [31: 0] douta
+    output wire [31: 0] WriteData
 );
+
+wire [31: 0] douta;
 
 DataMemory d0(
     .addra(EX_MEM_ALUOutput[8: 0]),
@@ -36,7 +38,9 @@ DataMemory d0(
     .douta(douta),
     .ena(1),
     .wea(EX_MEM_WriteMem)
-);  
+);
+
+assign WriteData = EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;
 
 always @(posedge clk or posedge rst) begin
     if (rst || EX_MEM_Bubble) begin
@@ -48,7 +52,7 @@ always @(posedge clk or posedge rst) begin
         MEM_WB_IR <= EX_MEM_IR;
         MEM_WB_WriteRegAddr <= EX_MEM_WriteRegAddr;
         MEM_WB_WriteReg <= EX_MEM_WriteReg;
-        MEM_WB_WriteData <= EX_MEM_MemToReg ? douta : EX_MEM_ALUOutput;
+        MEM_WB_WriteData <= WriteData;
         MEM_WB_GotoSeries <= EX_MEM_GotoSeries;
     end
 end

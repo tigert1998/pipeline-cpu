@@ -35,7 +35,7 @@ wire [31: 0] MEM_WB_WriteData;
 wire MEM_WB_GotoSeries;
 
 // special output
-wire [31: 0] ALUOutput, douta;
+wire [31: 0] ALUOutput, WriteData;
 
 // IF
 InstructionFetchStage s0(
@@ -71,7 +71,7 @@ InstructionDecodeStage s1(
     .MEM_WB_WriteRegAddr(MEM_WB_WriteRegAddr),
     .MEM_WB_WriteReg(MEM_WB_WriteReg),
     .MEM_WB_WriteData(MEM_WB_WriteData),
-    .douta(douta),
+    .WriteData(WriteData),
 
     .ID_EX_A(ID_EX_A),
     .ID_EX_B(ID_EX_B),
@@ -157,7 +157,7 @@ MemoryStage s3(
     .MEM_WB_WriteData(MEM_WB_WriteData),
     .MEM_WB_GotoSeries(MEM_WB_GotoSeries),
     
-    .douta(douta)
+    .WriteData(WriteData)
 );
 
 always @(posedge clk or posedge rst) begin

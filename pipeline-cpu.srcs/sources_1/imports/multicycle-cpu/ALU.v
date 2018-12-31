@@ -22,7 +22,7 @@ module ALU(
     assign result_slt = ($signed(A) < $signed(B)) ? 32'b1 : 32'b0;
     assign result_sll = B << A;
     assign result_srl = B >> A;
-    assign result_sra = B >>> A;
+    assign result_sra = $signed(B) >>> A;
     
     assign zero = result == 32'b0;
 

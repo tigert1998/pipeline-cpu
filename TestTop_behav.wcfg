@@ -11,50 +11,106 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="208200001fs"></ZoomEndTime>
-      <Cursor1Time time="43200000fs"></Cursor1Time>
+      <ZoomStartTime time="29150100000fs"></ZoomStartTime>
+      <ZoomEndTime time="29389500001fs"></ZoomEndTime>
+      <Cursor1Time time="29190000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="250"></NameColumnWidth>
-      <ValueColumnWidth column_width="231"></ValueColumnWidth>
+      <ValueColumnWidth column_width="107"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="32" />
+   <WVObjectSize size="53" />
    <wvobject type="logic" fp_name="/TestTop/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s0/PC">
+   <wvobject type="array" fp_name="/TestTop/t0/PC">
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s0/IF_ID_IR">
       <obj_property name="ElementShortName">IF_ID_IR[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_ID_IR[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s0/IF_ID_NPC">
       <obj_property name="ElementShortName">IF_ID_NPC[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_ID_NPC[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/TestTop/t0/s0/IF_ID_Bubble">
-      <obj_property name="ElementShortName">IF_ID_Bubble</obj_property>
-      <obj_property name="ObjectShortName">IF_ID_Bubble</obj_property>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/EX_MEM_GotoSeries">
+      <obj_property name="ElementShortName">EX_MEM_GotoSeries</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_GotoSeries</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/EX_MEM_WriteReg">
+      <obj_property name="ElementShortName">EX_MEM_WriteReg</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_WriteReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/EX_MEM_MemToReg">
+      <obj_property name="ElementShortName">EX_MEM_MemToReg</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_MemToReg</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/f0/EX_MEM_WriteRegAddr">
+      <obj_property name="ElementShortName">EX_MEM_WriteRegAddr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_WriteRegAddr[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/EX_MEM_Bubble">
+      <obj_property name="ElementShortName">EX_MEM_Bubble</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_Bubble</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/f0/WriteData">
+      <obj_property name="ElementShortName">WriteData[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteData[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/ForwardRs">
+      <obj_property name="ElementShortName">ForwardRs</obj_property>
+      <obj_property name="ObjectShortName">ForwardRs</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/ForwardRt">
+      <obj_property name="ElementShortName">ForwardRt</obj_property>
+      <obj_property name="ObjectShortName">ForwardRt</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/rs_data">
+      <obj_property name="ElementShortName">rs_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rs_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/rt_data">
+      <obj_property name="ElementShortName">rt_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rt_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/need_check_ID_EX">
+      <obj_property name="ElementShortName">need_check_ID_EX</obj_property>
+      <obj_property name="ObjectShortName">need_check_ID_EX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/f0/need_check_EX_MEM">
+      <obj_property name="ElementShortName">need_check_EX_MEM</obj_property>
+      <obj_property name="ObjectShortName">need_check_EX_MEM</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/f0/rs_match_p">
+      <obj_property name="ElementShortName">rs_match_p[1:0]</obj_property>
+      <obj_property name="ObjectShortName">rs_match_p[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/f0/rt_match_p">
+      <obj_property name="ElementShortName">rt_match_p[1:0]</obj_property>
+      <obj_property name="ObjectShortName">rt_match_p[1:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_A">
       <obj_property name="ElementShortName">ID_EX_A[31:0]</obj_property>
       <obj_property name="ObjectShortName">ID_EX_A[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_B">
       <obj_property name="ElementShortName">ID_EX_B[31:0]</obj_property>
       <obj_property name="ObjectShortName">ID_EX_B[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_NPC">
+      <obj_property name="ElementShortName">ID_EX_NPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_NPC[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_Imm">
       <obj_property name="ElementShortName">ID_EX_Imm[31:0]</obj_property>
       <obj_property name="ObjectShortName">ID_EX_Imm[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_ShiftAmount">
+      <obj_property name="ElementShortName">ID_EX_ShiftAmount[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_ShiftAmount[4:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_WriteReg">
       <obj_property name="ElementShortName">ID_EX_WriteReg</obj_property>
@@ -64,9 +120,21 @@
       <obj_property name="ElementShortName">ID_EX_MemToReg</obj_property>
       <obj_property name="ObjectShortName">ID_EX_MemToReg</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_WriteMem">
+      <obj_property name="ElementShortName">ID_EX_WriteMem</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_WriteMem</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_ALUSA">
+      <obj_property name="ElementShortName">ID_EX_ALUSA</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_ALUSA</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_ALUImm">
       <obj_property name="ElementShortName">ID_EX_ALUImm</obj_property>
       <obj_property name="ObjectShortName">ID_EX_ALUImm</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_GotoSeries">
+      <obj_property name="ElementShortName">ID_EX_GotoSeries</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_GotoSeries</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_ALUOperation">
       <obj_property name="ElementShortName">ID_EX_ALUOperation[3:0]</obj_property>
@@ -76,29 +144,45 @@
       <obj_property name="ElementShortName">ID_EX_WriteRegAddr[4:0]</obj_property>
       <obj_property name="ObjectShortName">ID_EX_WriteRegAddr[4:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_GotoSeries">
-      <obj_property name="ElementShortName">ID_EX_GotoSeries</obj_property>
-      <obj_property name="ObjectShortName">ID_EX_GotoSeries</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s1/ID_EX_NPC">
-      <obj_property name="ElementShortName">ID_EX_NPC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ID_EX_NPC[31:0]</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/TestTop/t0/s1/ID_EX_Bubble">
       <obj_property name="ElementShortName">ID_EX_Bubble</obj_property>
       <obj_property name="ObjectShortName">ID_EX_Bubble</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s1/stall">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s2/EX_MEM_NPC">
+      <obj_property name="ElementShortName">EX_MEM_NPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_NPC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s2/EX_MEM_IR">
+      <obj_property name="ElementShortName">EX_MEM_IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_IR[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s2/EX_MEM_ALUOutput">
       <obj_property name="ElementShortName">EX_MEM_ALUOutput[31:0]</obj_property>
       <obj_property name="ObjectShortName">EX_MEM_ALUOutput[31:0]</obj_property>
    </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s2/EX_MEM_WriteRegAddr">
+      <obj_property name="ElementShortName">EX_MEM_WriteRegAddr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_WriteRegAddr[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s2/EX_MEM_WriteMem">
+      <obj_property name="ElementShortName">EX_MEM_WriteMem</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_WriteMem</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/s2/EX_MEM_WriteReg">
+      <obj_property name="ElementShortName">EX_MEM_WriteReg</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_WriteReg</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/TestTop/t0/s2/EX_MEM_GotoSeries">
       <obj_property name="ElementShortName">EX_MEM_GotoSeries</obj_property>
       <obj_property name="ObjectShortName">EX_MEM_GotoSeries</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s2/EX_MEM_NPC">
-      <obj_property name="ElementShortName">EX_MEM_NPC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">EX_MEM_NPC[31:0]</obj_property>
+   <wvobject type="logic" fp_name="/TestTop/t0/s3/EX_MEM_Bubble">
+      <obj_property name="ElementShortName">EX_MEM_Bubble</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_Bubble</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s3/MEM_WB_WriteRegAddr">
       <obj_property name="ElementShortName">MEM_WB_WriteRegAddr[4:0]</obj_property>
@@ -112,52 +196,63 @@
       <obj_property name="ElementShortName">MEM_WB_WriteData[31:0]</obj_property>
       <obj_property name="ObjectShortName">MEM_WB_WriteData[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/TestTop/t0/s3/MEM_WB_GotoSeries">
-      <obj_property name="ElementShortName">MEM_WB_GotoSeries</obj_property>
-      <obj_property name="ObjectShortName">MEM_WB_GotoSeries</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s3/MEM_WB_NPC">
-      <obj_property name="ElementShortName">MEM_WB_NPC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">MEM_WB_NPC[31:0]</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[8]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[8][31:0]</obj_property>
       <obj_property name="ObjectShortName">[8][31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t0</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[9]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[9][31:0]</obj_property>
       <obj_property name="ObjectShortName">[9][31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t1</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[10]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[10][31:0]</obj_property>
       <obj_property name="ObjectShortName">[10][31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t2</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[11]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[11][31:0]</obj_property>
       <obj_property name="ObjectShortName">[11][31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t3</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[12]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[12][31:0]</obj_property>
       <obj_property name="ObjectShortName">[12][31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[13]">
-      <obj_property name="ElementShortName">[13][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[14]">
-      <obj_property name="ElementShortName">[14][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t4</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[15]">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">[15][31:0]</obj_property>
       <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="label">$t7</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[17]">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[17][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[17][31:0]</obj_property>
+      <obj_property name="label">$s1</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[18]">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[18][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[18][31:0]</obj_property>
+      <obj_property name="label">$s2</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[19]">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[19][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[19][31:0]</obj_property>
+      <obj_property name="label">$s3</obj_property>
    </wvobject>
 </wave_config>

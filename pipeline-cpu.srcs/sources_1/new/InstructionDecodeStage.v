@@ -22,7 +22,7 @@ module InstructionDecodeStage(
     input wire MEM_WB_WriteReg,
     input wire [31: 0] MEM_WB_WriteData,
     // memory output
-    input wire [31: 0] douta,
+    input wire [31: 0] WriteData,
 
     // output pipeline registers
     output reg [31: 0] ID_EX_A,
@@ -114,7 +114,7 @@ StallControl s1(
     .stall(stall)
 );
 
-wire forward_rs, forward_rt;
+wire ForwardRs, ForwardRt;
 wire [31: 0] rs_data, rt_data;
 ForwardControl f0(
     .ReadRs(ReadRs),
@@ -133,14 +133,18 @@ ForwardControl f0(
     .EX_MEM_WriteReg(EX_MEM_WriteReg),
     .EX_MEM_MemToReg(EX_MEM_MemToReg),
     .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
-    .EX_MEM_Bubble(ID_EX_Bubble),
-    .douta(douta),
+    .EX_MEM_Bubble(EX_MEM_Bubble),
+    .WriteData(WriteData),
     
-    .forward_rs(forward_rs),
+    .ForwardRs(ForwardRs),
     .rs_data(rs_data),
-    .forward_rt(forward_rt),
+    .ForwardRt(ForwardRt),
     .rt_data(rt_data)
 );
+
+wire [31: 0] A, B;
+assign A = ForwardRs ? rs_data : ReadData1;
+assign B = ForwardRt ? rt_data : ReadData2;
 
 always @(posedge clk or posedge rst) begin
     if (rst || stall || IF_ID_Bubble || MEM_WB_GotoSeries) begin
@@ -150,24 +154,17 @@ always @(posedge clk or posedge rst) begin
         
         ID_EX_Bubble <= 1;
     end else begin
-        if (forward_rs)
-            ID_EX_A <= rs_data;
-        else
-            ID_EX_A <= ReadData1;
-        
-        if (forward_rt)
-            ID_EX_B <= rt_data;
-        else
-            ID_EX_B <= ReadData2;
+        ID_EX_A <= A;
+        ID_EX_B <= B;
         
         if (GotoSeries) begin
             case (InstructionType)
                 5'd6:
-                    ID_EX_NPC <= ReadData1;
+                    ID_EX_NPC <= A;
                 5'd17:
-                    ID_EX_NPC <= (ReadData1 == ReadData2) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                    ID_EX_NPC <= (A == B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
                 5'd18:
-                    ID_EX_NPC <= (ReadData1 != ReadData2) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                    ID_EX_NPC <= (A != B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
                 5'd29, 5'd30:
                     ID_EX_NPC <= {IF_ID_NPC[31: 28], IF_ID_IR[25: 0], 2'b00};
                 default:

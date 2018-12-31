@@ -18,11 +18,11 @@ module ForwardControl(
     input wire EX_MEM_MemToReg,
     input wire [4: 0] EX_MEM_WriteRegAddr,
     input wire EX_MEM_Bubble,
-    input wire [31: 0] douta,
+    input wire [31: 0] WriteData,
     
-    output reg forward_rs,
+    output reg ForwardRs,
     output reg [31: 0] rs_data,
-    output reg forward_rt,
+    output reg ForwardRt,
     output reg [31: 0] rt_data
 );
 
@@ -31,19 +31,39 @@ assign need_check_ID_EX =
     !ID_EX_GotoSeries && ID_EX_WriteReg && !ID_EX_MemToReg && !ID_EX_Bubble;
     
 assign need_check_EX_MEM =
-    !EX_MEM_GotoSeries && EX_MEM_WriteReg && EX_MEM_MemToReg && !EX_MEM_Bubble;
-    
+    !EX_MEM_GotoSeries && EX_MEM_WriteReg && !EX_MEM_Bubble;
+
+wire [1: 0] rs_match_p, rt_match_p;
+assign rs_match_p =
+    (need_check_ID_EX && ID_EX_WriteRegAddr == rs) ? 2'd1 : 
+    (need_check_EX_MEM && EX_MEM_WriteRegAddr == rs) ? 2'd2 :
+    2'd0;
+assign rt_match_p =
+    (need_check_ID_EX && ID_EX_WriteRegAddr == rt) ? 2'd1 : 
+    (need_check_EX_MEM && EX_MEM_WriteRegAddr == rt) ? 2'd2 :
+    2'd0;
+
 always @* begin
-    if (need_check_ID_EX) begin
-        forward_rs <= ReadRs && ID_EX_WriteRegAddr == rs;
-        rs_data <= ALUOutput;
-        forward_rt <= ReadRt && ID_EX_WriteRegAddr == rt;
-        rt_data <= ALUOutput;
-    end else if (need_check_EX_MEM) begin
-        forward_rs <= ReadRs && EX_MEM_WriteRegAddr == rs;
-        rs_data <= douta;
-        forward_rt <= ReadRt && EX_MEM_WriteRegAddr == rt;
-        rt_data <= douta;
+    if (!ReadRs) begin
+        ForwardRs <= 1'd0;
+        rs_data <= 32'dx;
+    end else begin
+        ForwardRs <= (rs_match_p != 2'd0);
+        rs_data <= 
+            (rs_match_p == 2'd0) ? 32'dx :
+            (rs_match_p == 2'd1) ? ALUOutput :
+            WriteData;
+    end
+    
+    if (!ReadRt) begin
+        ForwardRt <= 1'd0;
+        rt_data <= 32'dx;
+    end else begin
+        ForwardRt <= (rt_match_p != 2'd0);
+        rt_data <= 
+            (rt_match_p == 2'd0) ? 32'dx :
+            (rt_match_p == 2'd1) ? ALUOutput :
+            WriteData;
     end
 end
 
