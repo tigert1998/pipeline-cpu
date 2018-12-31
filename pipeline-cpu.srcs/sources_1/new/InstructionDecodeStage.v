@@ -32,6 +32,8 @@ module InstructionDecodeStage(
     output reg [31: 0] ID_EX_Imm,
     output reg [4: 0] ID_EX_ShiftAmount,
     
+    output reg ID_EX_JAL,
+    output reg [31: 0] ID_EX_JAL_WriteData,
     output reg ID_EX_WriteReg,
     output reg ID_EX_MemToReg,
     output reg ID_EX_WriteMem,
@@ -156,6 +158,8 @@ always @(posedge clk or posedge rst) begin
     end else begin
         ID_EX_A <= A;
         ID_EX_B <= B;
+        ID_EX_JAL <= InstructionType == 5'd30;
+        ID_EX_JAL_WriteData <= IF_ID_NPC;
         
         if (GotoSeries) begin
             case (InstructionType)
@@ -182,7 +186,9 @@ always @(posedge clk or posedge rst) begin
         ID_EX_ALUImm <= ALUImm;
         ID_EX_GotoSeries <= GotoSeries;
         ID_EX_ALUOperation <= ALUOperation;
-        ID_EX_WriteRegAddr <= RtAsDestination ? IF_ID_IR[20: 16] : IF_ID_IR[15: 11];
+        ID_EX_WriteRegAddr <=
+            (InstructionType == 5'd30) ? 5'd31 :
+            (RtAsDestination ? IF_ID_IR[20: 16] : IF_ID_IR[15: 11]);
         
         ID_EX_Bubble <= 0;
     end

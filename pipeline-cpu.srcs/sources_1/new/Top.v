@@ -16,7 +16,10 @@ wire IF_ID_Bubble;
 // ID/EX
 wire [31: 0] ID_EX_A, ID_EX_B, ID_EX_NPC, ID_EX_IR, ID_EX_Imm;
 wire [4: 0] ID_EX_ShiftAmount;
-wire ID_EX_WriteReg, ID_EX_MemToReg, ID_EX_WriteMem, ID_EX_ALUSA, ID_EX_ALUImm, ID_EX_GotoSeries;
+wire ID_EX_JAL;
+wire [31: 0] ID_EX_JAL_WriteData;
+wire ID_EX_WriteReg, ID_EX_MemToReg, ID_EX_WriteMem, ID_EX_ALUSA;
+wire ID_EX_ALUImm, ID_EX_GotoSeries;
 wire [3: 0] ID_EX_ALUOperation;
 wire [4: 0] ID_EX_WriteRegAddr;
 wire ID_EX_Bubble;
@@ -80,6 +83,8 @@ InstructionDecodeStage s1(
     .ID_EX_Imm(ID_EX_Imm),
     .ID_EX_ShiftAmount(ID_EX_ShiftAmount),
     
+    .ID_EX_JAL(ID_EX_JAL),
+    .ID_EX_JAL_WriteData(ID_EX_JAL_WriteData),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteMem(ID_EX_WriteMem),
@@ -106,6 +111,8 @@ ExecutionStage s2(
     .ID_EX_Imm(ID_EX_Imm),
     .ID_EX_ShiftAmount(ID_EX_ShiftAmount),
     
+    .ID_EX_JAL(ID_EX_JAL),
+    .ID_EX_JAL_WriteData(ID_EX_JAL_WriteData),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteMem(ID_EX_WriteMem),

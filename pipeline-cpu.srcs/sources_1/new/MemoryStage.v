@@ -32,7 +32,7 @@ module MemoryStage(
 wire [31: 0] douta;
 
 DataMemory d0(
-    .addra(EX_MEM_ALUOutput[8: 0]),
+    .addra(EX_MEM_ALUOutput[10: 2]),
     .clka(~clk),
     .dina(EX_MEM_B),
     .douta(douta),

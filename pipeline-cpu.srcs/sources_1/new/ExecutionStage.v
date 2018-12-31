@@ -12,6 +12,8 @@ module ExecutionStage(
     input wire [31: 0] ID_EX_Imm,
     input wire [4: 0] ID_EX_ShiftAmount,
     
+    input wire ID_EX_JAL,
+    input wire [31: 0] ID_EX_JAL_WriteData,
     input wire ID_EX_WriteReg,
     input wire ID_EX_MemToReg,
     input wire ID_EX_WriteMem,
@@ -61,7 +63,7 @@ always @(posedge clk or posedge rst) begin
     end else begin
         EX_MEM_NPC <= ID_EX_NPC;
         EX_MEM_IR <= ID_EX_IR;
-        EX_MEM_ALUOutput <= ALUOutput;
+        EX_MEM_ALUOutput <= ID_EX_JAL ? ID_EX_JAL_WriteData : ALUOutput;
         EX_MEM_B <= ID_EX_B;
         EX_MEM_Opcode <= ID_EX_IR[31: 26];
         EX_MEM_WriteRegAddr <= ID_EX_WriteRegAddr;
