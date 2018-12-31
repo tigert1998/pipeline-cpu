@@ -8,16 +8,21 @@ module InstructionDecodeStage(
     input wire [31: 0] IF_ID_NPC,
     input wire IF_ID_Bubble,
     
-    // input pipeline registers from other stages
+    // input pipeline registers and special wires from other stages
     input wire EX_MEM_GotoSeries,
     input wire [4: 0] EX_MEM_WriteRegAddr,
     input wire EX_MEM_WriteReg,
+    input wire EX_MEM_MemToReg,
     input wire EX_MEM_Bubble,
+    // ALU output
+    input wire [31: 0] ALUOutput,
     
     input wire MEM_WB_GotoSeries,
     input wire [4: 0] MEM_WB_WriteRegAddr,
     input wire MEM_WB_WriteReg,
     input wire [31: 0] MEM_WB_WriteData,
+    // memory output
+    input wire [31: 0] douta,
 
     // output pipeline registers
     output reg [31: 0] ID_EX_A,
@@ -99,15 +104,42 @@ StallControl s1(
     
     .ID_EX_GotoSeries(ID_EX_GotoSeries),
     .ID_EX_WriteReg(ID_EX_WriteReg),
+    .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
     .ID_EX_Bubble(ID_EX_Bubble),
     
     .EX_MEM_GotoSeries(EX_MEM_GotoSeries),
-    .EX_MEM_WriteReg(EX_MEM_WriteReg),
-    .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
     .EX_MEM_Bubble(EX_MEM_Bubble),
     
     .stall(stall)
+);
+
+wire forward_rs, forward_rt;
+wire [31: 0] rs_data, rt_data;
+ForwardControl f0(
+    .ReadRs(ReadRs),
+    .rs(IF_ID_IR[25: 21]),
+    .ReadRt(ReadRt),
+    .rt(IF_ID_IR[20: 16]),
+    
+    .ID_EX_GotoSeries(ID_EX_GotoSeries),
+    .ID_EX_WriteReg(ID_EX_WriteReg),
+    .ID_EX_MemToReg(ID_EX_MemToReg),
+    .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
+    .ID_EX_Bubble(ID_EX_Bubble),
+    .ALUOutput(ALUOutput),
+    
+    .EX_MEM_GotoSeries(EX_MEM_GotoSeries),
+    .EX_MEM_WriteReg(EX_MEM_WriteReg),
+    .EX_MEM_MemToReg(EX_MEM_MemToReg),
+    .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
+    .EX_MEM_Bubble(ID_EX_Bubble),
+    .douta(douta),
+    
+    .forward_rs(forward_rs),
+    .rs_data(rs_data),
+    .forward_rt(forward_rt),
+    .rt_data(rt_data)
 );
 
 always @(posedge clk or posedge rst) begin
@@ -118,8 +150,15 @@ always @(posedge clk or posedge rst) begin
         
         ID_EX_Bubble <= 1;
     end else begin
-        ID_EX_A <= ReadData1;
-        ID_EX_B <= ReadData2;
+        if (forward_rs)
+            ID_EX_A <= rs_data;
+        else
+            ID_EX_A <= ReadData1;
+        
+        if (forward_rt)
+            ID_EX_B <= rt_data;
+        else
+            ID_EX_B <= ReadData2;
         
         if (GotoSeries) begin
             case (InstructionType)
@@ -134,7 +173,7 @@ always @(posedge clk or posedge rst) begin
                 default:
                     ID_EX_NPC <= 32'dx;
             endcase
-        end        
+        end
         ID_EX_IR <= IF_ID_IR;
         ID_EX_Imm <= SignExtendImm ? SignExtendedImm : ZeroExtendedImm;
         ID_EX_ShiftAmount <= ShiftAmount;

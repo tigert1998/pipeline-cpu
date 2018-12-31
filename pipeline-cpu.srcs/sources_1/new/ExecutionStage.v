@@ -35,10 +35,12 @@ module ExecutionStage(
     output reg EX_MEM_MemToReg,
     output reg EX_MEM_GotoSeries,
     
-    output reg EX_MEM_Bubble
+    output reg EX_MEM_Bubble,
+    
+    // special output
+    output wire [31: 0] ALUOutput
 );
 
-wire [31: 0] ALUOutput;
 wire zero;
 
 ALU a1(

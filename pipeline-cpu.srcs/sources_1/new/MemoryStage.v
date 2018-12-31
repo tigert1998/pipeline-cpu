@@ -23,10 +23,11 @@ module MemoryStage(
     output reg [4: 0] MEM_WB_WriteRegAddr,
     output reg MEM_WB_WriteReg,
     output reg [31: 0] MEM_WB_WriteData,
-    output reg MEM_WB_GotoSeries
+    output reg MEM_WB_GotoSeries,
+    
+    // special output
+    output wire [31: 0] douta
 );
-
-wire [31: 0] douta;
 
 DataMemory d0(
     .addra(EX_MEM_ALUOutput[8: 0]),
