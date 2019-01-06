@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
-// Date        : Sun Jan  6 23:07:25 2019
+// Date        : Mon Jan  7 00:00:56 2019
 // Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
 // Command     : write_verilog -force -mode funcsim
 //               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/DataMemory/DataMemory_sim_netlist.v
@@ -97,9 +97,9 @@ module DataMemory
   (* C_INITA_VAL = "0" *) 
   (* C_INITB_VAL = "0" *) 
   (* C_INIT_FILE = "DataMemory.mem" *) 
-  (* C_INIT_FILE_NAME = "DataMemory.mif" *) 
+  (* C_INIT_FILE_NAME = "no_coe_file_loaded" *) 
   (* C_INTERFACE_TYPE = "0" *) 
-  (* C_LOAD_INIT_FILE = "1" *) 
+  (* C_LOAD_INIT_FILE = "0" *) 
   (* C_MEM_TYPE = "0" *) 
   (* C_MUX_PIPELINE_STAGES = "0" *) 
   (* C_PRIM_TYPE = "1" *) 
@@ -255,7 +255,7 @@ module DataMemory_blk_mem_gen_prim_width
   wire ena;
   wire [0:0]wea;
 
-  DataMemory_blk_mem_gen_prim_wrapper_init \prim_init.ram 
+  DataMemory_blk_mem_gen_prim_wrapper \prim_noinit.ram 
        (.addra(addra),
         .clka(clka),
         .dina(dina),
@@ -286,7 +286,7 @@ module DataMemory_blk_mem_gen_prim_width__parameterized0
   wire ena;
   wire [0:0]wea;
 
-  DataMemory_blk_mem_gen_prim_wrapper_init__parameterized0 \prim_init.ram 
+  DataMemory_blk_mem_gen_prim_wrapper__parameterized0 \prim_noinit.ram 
        (.addra(addra),
         .clka(clka),
         .dina(dina),
@@ -295,8 +295,8 @@ module DataMemory_blk_mem_gen_prim_width__parameterized0
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
-module DataMemory_blk_mem_gen_prim_wrapper_init
+(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper" *) 
+module DataMemory_blk_mem_gen_prim_wrapper
    (douta,
     clka,
     ena,
@@ -333,7 +333,7 @@ module DataMemory_blk_mem_gen_prim_wrapper_init
     .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000005),
+    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -349,7 +349,7 @@ module DataMemory_blk_mem_gen_prim_wrapper_init
     .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000013671366),
+    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -539,8 +539,8 @@ module DataMemory_blk_mem_gen_prim_wrapper_init
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
-module DataMemory_blk_mem_gen_prim_wrapper_init__parameterized0
+(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper" *) 
+module DataMemory_blk_mem_gen_prim_wrapper__parameterized0
    (douta,
     clka,
     ena,
@@ -832,7 +832,7 @@ endmodule
 (* C_HAS_REGCEA = "0" *) (* C_HAS_REGCEB = "0" *) (* C_HAS_RSTA = "0" *) 
 (* C_HAS_RSTB = "0" *) (* C_HAS_SOFTECC_INPUT_REGS_A = "0" *) (* C_HAS_SOFTECC_OUTPUT_REGS_B = "0" *) 
 (* C_INITA_VAL = "0" *) (* C_INITB_VAL = "0" *) (* C_INIT_FILE = "DataMemory.mem" *) 
-(* C_INIT_FILE_NAME = "DataMemory.mif" *) (* C_INTERFACE_TYPE = "0" *) (* C_LOAD_INIT_FILE = "1" *) 
+(* C_INIT_FILE_NAME = "no_coe_file_loaded" *) (* C_INTERFACE_TYPE = "0" *) (* C_LOAD_INIT_FILE = "0" *) 
 (* C_MEM_TYPE = "0" *) (* C_MUX_PIPELINE_STAGES = "0" *) (* C_PRIM_TYPE = "1" *) 
 (* C_READ_DEPTH_A = "2048" *) (* C_READ_DEPTH_B = "2048" *) (* C_READ_WIDTH_A = "32" *) 
 (* C_READ_WIDTH_B = "32" *) (* C_RSTRAM_A = "0" *) (* C_RSTRAM_B = "0" *) 

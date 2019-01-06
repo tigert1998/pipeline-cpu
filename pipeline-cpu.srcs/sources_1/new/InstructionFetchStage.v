@@ -32,7 +32,7 @@ always @(posedge rst or posedge clk) begin
         IF_ID_Bubble <= 0;
     end else begin
         IF_ID_IR <= douta;
-        IF_ID_NPC <= PC + 4;
+        IF_ID_NPC <= MEM_WB_GotoSeries ? MEM_WB_NPC + 4 : PC + 4;
         IF_ID_Bubble <= 0;
     end
 end

@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="409545718fs"></ZoomEndTime>
-      <Cursor1Time time="85710000fs"></Cursor1Time>
+      <ZoomStartTime time="320810032073fs"></ZoomStartTime>
+      <ZoomEndTime time="321037993586fs"></ZoomEndTime>
+      <Cursor1Time time="320944097000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="250"></NameColumnWidth>
-      <ValueColumnWidth column_width="83"></ValueColumnWidth>
+      <ValueColumnWidth column_width="67"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="15" />
    <wvobject type="logic" fp_name="/TestTop/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -35,6 +35,34 @@
    <wvobject type="array" fp_name="/TestTop/t0/s0/IF_ID_NPC">
       <obj_property name="ElementShortName">IF_ID_NPC[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_ID_NPC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/ID_EX_NPC">
+      <obj_property name="ElementShortName">ID_EX_NPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_NPC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/ID_EX_GotoSeries">
+      <obj_property name="ElementShortName">ID_EX_GotoSeries</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_GotoSeries</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/EX_MEM_NPC">
+      <obj_property name="ElementShortName">EX_MEM_NPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_NPC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/EX_MEM_GotoSeries">
+      <obj_property name="ElementShortName">EX_MEM_GotoSeries</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_GotoSeries</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/MEM_WB_NPC">
+      <obj_property name="ElementShortName">MEM_WB_NPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_WB_NPC[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/TestTop/t0/MEM_WB_GotoSeries">
+      <obj_property name="ElementShortName">MEM_WB_GotoSeries</obj_property>
+      <obj_property name="ObjectShortName">MEM_WB_GotoSeries</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers">
+      <obj_property name="ElementShortName">registers[0:31][31:0]</obj_property>
+      <obj_property name="ObjectShortName">registers[0:31][31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/TestTop/t0/s1/r0/registers[8]">
       <obj_property name="ElementShortName">[8][31:0]</obj_property>
