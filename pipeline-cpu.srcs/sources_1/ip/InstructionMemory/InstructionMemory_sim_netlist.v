@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
-// Date        : Mon Dec 31 19:32:11 2018
+// Date        : Fri Dec 14 09:24:24 2018
 // Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
-// Command     : write_verilog -force -mode funcsim
-//               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/InstructionMemory/InstructionMemory_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top InstructionMemory -prefix
+//               InstructionMemory_ InstructionMemory_sim_netlist.v
 // Design      : InstructionMemory
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -195,7 +195,6 @@ module InstructionMemory
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module InstructionMemory_blk_mem_gen_generic_cstr
    (douta,
     clka,
@@ -226,7 +225,6 @@ module InstructionMemory_blk_mem_gen_generic_cstr
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module InstructionMemory_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -257,7 +255,6 @@ module InstructionMemory_blk_mem_gen_prim_width
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module InstructionMemory_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -295,12 +292,12 @@ module InstructionMemory_blk_mem_gen_prim_wrapper_init
     .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h200900652008005600011820342100043C01100000011020342100003C011000),
-    .INIT_01(256'h8C6900008C4800000810000D8C6B00008C4A00000C10000EAC690000AC480000),
-    .INIT_02(256'h000000000000000000000000000000000000000003E00008AC490000AC680000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_00(256'h11600001000A504300094842000B5840000B4FC0000B57C0356B0001316B0000),
+    .INIT_01(256'h3413002000019025342104003C01100000018825342100003C01100008100004),
+    .INIT_02(256'h01F17820000C788015E0000E8DEF000001F27820000978800000602534090002),
+    .INIT_03(256'hADF700103417000121EFFFF001F27820000A788001405024ADE90000218C0001),
+    .INIT_04(256'h00097880312900001533FFEC2129000115E0FFF7000F7FC20153782201495020),
+    .INIT_05(256'h0000000000000000000000000810002C152CFFFB212900018DEA000001F17820),
     .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -409,7 +406,6 @@ module InstructionMemory_blk_mem_gen_prim_wrapper_init
         .WEBWE({1'b0,1'b0,wea,wea}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module InstructionMemory_blk_mem_gen_top
    (douta,
     clka,
@@ -464,7 +460,7 @@ endmodule
 (* C_USE_URAM = "0" *) (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) 
 (* C_WRITE_DEPTH_A = "512" *) (* C_WRITE_DEPTH_B = "512" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) 
 (* C_WRITE_MODE_B = "WRITE_FIRST" *) (* C_WRITE_WIDTH_A = "32" *) (* C_WRITE_WIDTH_B = "32" *) 
-(* C_XDEVICEFAMILY = "kintex7" *) (* ORIG_REF_NAME = "blk_mem_gen_v8_4_1" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* C_XDEVICEFAMILY = "kintex7" *) (* downgradeipidentifiedwarnings = "yes" *) 
 module InstructionMemory_blk_mem_gen_v8_4_1
    (clka,
     rsta,
@@ -718,7 +714,6 @@ module InstructionMemory_blk_mem_gen_v8_4_1
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_1_synth" *) 
 module InstructionMemory_blk_mem_gen_v8_4_1_synth
    (douta,
     clka,

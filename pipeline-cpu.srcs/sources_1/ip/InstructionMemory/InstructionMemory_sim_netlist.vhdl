@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
--- Date        : Mon Dec 31 19:32:11 2018
+-- Date        : Fri Dec 14 09:24:24 2018
 -- Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
--- Command     : write_vhdl -force -mode funcsim
---               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/InstructionMemory/InstructionMemory_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top InstructionMemory -prefix
+--               InstructionMemory_ InstructionMemory_sim_netlist.vhdl
 -- Design      : InstructionMemory
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -23,8 +23,6 @@ entity InstructionMemory_blk_mem_gen_prim_wrapper_init is
     dina : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_prim_wrapper_init : entity is "blk_mem_gen_prim_wrapper_init";
 end InstructionMemory_blk_mem_gen_prim_wrapper_init;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_prim_wrapper_init is
@@ -47,12 +45,12 @@ begin
       INITP_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INITP_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INITP_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_00 => X"200900652008005600011820342100043C01100000011020342100003C011000",
-      INIT_01 => X"8C6900008C4800000810000D8C6B00008C4A00000C10000EAC690000AC480000",
-      INIT_02 => X"000000000000000000000000000000000000000003E00008AC490000AC680000",
-      INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_00 => X"11600001000A504300094842000B5840000B4FC0000B57C0356B0001316B0000",
+      INIT_01 => X"3413002000019025342104003C01100000018825342100003C01100008100004",
+      INIT_02 => X"01F17820000C788015E0000E8DEF000001F27820000978800000602534090002",
+      INIT_03 => X"ADF700103417000121EFFFF001F27820000A788001405024ADE90000218C0001",
+      INIT_04 => X"00097880312900001533FFEC2129000115E0FFF7000F7FC20153782201495020",
+      INIT_05 => X"0000000000000000000000000810002C152CFFFB212900018DEA000001F17820",
       INIT_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_08 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -182,8 +180,6 @@ entity InstructionMemory_blk_mem_gen_prim_width is
     dina : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_prim_width : entity is "blk_mem_gen_prim_width";
 end InstructionMemory_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_prim_width is
@@ -211,8 +207,6 @@ entity InstructionMemory_blk_mem_gen_generic_cstr is
     dina : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_generic_cstr : entity is "blk_mem_gen_generic_cstr";
 end InstructionMemory_blk_mem_gen_generic_cstr;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_generic_cstr is
@@ -240,8 +234,6 @@ entity InstructionMemory_blk_mem_gen_top is
     dina : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_top : entity is "blk_mem_gen_top";
 end InstructionMemory_blk_mem_gen_top;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_top is
@@ -269,8 +261,6 @@ entity InstructionMemory_blk_mem_gen_v8_4_1_synth is
     dina : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wea : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_v8_4_1_synth : entity is "blk_mem_gen_v8_4_1_synth";
 end InstructionMemory_blk_mem_gen_v8_4_1_synth;
 
 architecture STRUCTURE of InstructionMemory_blk_mem_gen_v8_4_1_synth is
@@ -501,8 +491,6 @@ entity InstructionMemory_blk_mem_gen_v8_4_1 is
   attribute C_WRITE_WIDTH_B of InstructionMemory_blk_mem_gen_v8_4_1 : entity is 32;
   attribute C_XDEVICEFAMILY : string;
   attribute C_XDEVICEFAMILY of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "kintex7";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "blk_mem_gen_v8_4_1";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of InstructionMemory_blk_mem_gen_v8_4_1 : entity is "yes";
 end InstructionMemory_blk_mem_gen_v8_4_1;

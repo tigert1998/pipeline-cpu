@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2.2 (lin64) Build 2348494 Mon Oct  1 18:25:39 MDT 2018
--- Date        : Mon Dec 31 19:32:11 2018
+-- Date        : Fri Dec 14 09:24:24 2018
 -- Host        : tigertang-ThinkPad running 64-bit Ubuntu 18.04.1 LTS
--- Command     : write_vhdl -force -mode synth_stub
---               /home/tigertang/Projects/pipeline-cpu/pipeline-cpu.srcs/sources_1/ip/InstructionMemory/InstructionMemory_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top InstructionMemory -prefix
+--               InstructionMemory_ InstructionMemory_stub.vhdl
 -- Design      : InstructionMemory
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7k325tffg676-1
