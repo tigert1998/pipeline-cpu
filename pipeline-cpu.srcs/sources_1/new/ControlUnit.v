@@ -79,7 +79,7 @@ assign ReadRs =
 assign ReadRt =
     SLL || SRL || SRA || SLLV || SRLV || SRAV || ADD || ADDU || SUB || SUBU || AND || OR || XOR || NOR || SLT || SLTU ||
     BEQ || BNE || SW;
-assign GotoSeries = JR || Branch || J || JAL;
+assign GotoSeries = JR || J || JAL;
 
 always @* begin
     if (AND || ANDI) begin

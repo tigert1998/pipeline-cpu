@@ -10,6 +10,7 @@ module InstructionDecodeStage(
     
     // input pipeline registers and special wires from other stages
     input wire EX_MEM_GotoSeries,
+    input wire EX_MEM_BranchTaken,
     input wire [4: 0] EX_MEM_WriteRegAddr,
     input wire EX_MEM_WriteReg,
     input wire EX_MEM_MemToReg,
@@ -18,6 +19,7 @@ module InstructionDecodeStage(
     input wire [31: 0] ALUOutput,
     
     input wire MEM_WB_GotoSeries,
+    input wire MEM_WB_BranchTaken,
     input wire [4: 0] MEM_WB_WriteRegAddr,
     input wire MEM_WB_WriteReg,
     input wire [31: 0] MEM_WB_WriteData,
@@ -42,6 +44,7 @@ module InstructionDecodeStage(
     output reg ID_EX_GotoSeries,
     output reg [3: 0] ID_EX_ALUOperation,
     output reg [4: 0] ID_EX_WriteRegAddr,
+    output reg ID_EX_BranchTaken,
     
     output reg ID_EX_Bubble,
 
@@ -105,12 +108,14 @@ StallControl s1(
     .rt(IF_ID_IR[20: 16]),
     
     .ID_EX_GotoSeries(ID_EX_GotoSeries),
+    .ID_EX_BranchTaken(ID_EX_BranchTaken),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
     .ID_EX_Bubble(ID_EX_Bubble),
     
     .EX_MEM_GotoSeries(EX_MEM_GotoSeries),
+    .EX_MEM_BranchTaken(EX_MEM_BranchTaken),
     .EX_MEM_Bubble(EX_MEM_Bubble),
     
     .stall(stall)
@@ -125,6 +130,7 @@ ForwardControl f0(
     .rt(IF_ID_IR[20: 16]),
     
     .ID_EX_GotoSeries(ID_EX_GotoSeries),
+    .ID_EX_BranchTaken(ID_EX_BranchTaken),
     .ID_EX_WriteReg(ID_EX_WriteReg),
     .ID_EX_MemToReg(ID_EX_MemToReg),
     .ID_EX_WriteRegAddr(ID_EX_WriteRegAddr),
@@ -132,6 +138,7 @@ ForwardControl f0(
     .ALUOutput(ALUOutput),
     
     .EX_MEM_GotoSeries(EX_MEM_GotoSeries),
+    .EX_MEM_BranchTaken(EX_MEM_BranchTaken),
     .EX_MEM_WriteReg(EX_MEM_WriteReg),
     .EX_MEM_MemToReg(EX_MEM_MemToReg),
     .EX_MEM_WriteRegAddr(EX_MEM_WriteRegAddr),
@@ -149,10 +156,11 @@ assign A = ForwardRs ? rs_data : ReadData1;
 assign B = ForwardRt ? rt_data : ReadData2;
 
 always @(posedge clk or posedge rst) begin
-    if (rst || stall || IF_ID_Bubble || MEM_WB_GotoSeries) begin
+    if (rst || stall || IF_ID_Bubble || MEM_WB_GotoSeries || MEM_WB_BranchTaken) begin
         ID_EX_WriteReg <= 0;
         ID_EX_WriteMem <= 0;
         ID_EX_GotoSeries <= 0;
+        ID_EX_BranchTaken <= 0;
         
         ID_EX_Bubble <= 1;
     end else begin
@@ -161,20 +169,29 @@ always @(posedge clk or posedge rst) begin
         ID_EX_JAL <= InstructionType == 5'd30;
         ID_EX_JAL_WriteData <= IF_ID_NPC;
         
-        if (GotoSeries) begin
-            case (InstructionType)
-                5'd6:
-                    ID_EX_NPC <= A;
-                5'd17:
-                    ID_EX_NPC <= (A == B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
-                5'd18:
-                    ID_EX_NPC <= (A != B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
-                5'd29, 5'd30:
-                    ID_EX_NPC <= {IF_ID_NPC[31: 28], IF_ID_IR[25: 0], 2'b00};
-                default:
-                    ID_EX_NPC <= 32'dx;
-            endcase
-        end
+        case (InstructionType)
+            5'd6: begin // JR
+                ID_EX_NPC <= A;
+                ID_EX_BranchTaken <= 0;
+            end
+            5'd17: begin // BEQ
+                ID_EX_NPC <= (A == B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                ID_EX_BranchTaken <= (A == B);
+            end
+            5'd18: begin // BNE
+                ID_EX_NPC <= (A != B) ? IF_ID_NPC + (SignExtendedImm << 2) : IF_ID_NPC;
+                ID_EX_BranchTaken <= (A != B);
+            end
+            5'd29, 5'd30: begin // J JAL
+                ID_EX_NPC <= {IF_ID_NPC[31: 28], IF_ID_IR[25: 0], 2'b00};
+                ID_EX_BranchTaken <= 0;
+            end
+            default: begin
+                ID_EX_NPC <= 32'dx;
+                ID_EX_BranchTaken <= 0;
+            end
+        endcase
+        
         ID_EX_IR <= IF_ID_IR;
         ID_EX_Imm <= SignExtendImm ? SignExtendedImm : ZeroExtendedImm;
         ID_EX_ShiftAmount <= ShiftAmount;

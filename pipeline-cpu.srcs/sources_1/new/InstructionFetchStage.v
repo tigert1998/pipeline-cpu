@@ -7,6 +7,7 @@ module InstructionFetchStage(
     input wire stall,
     
     input wire MEM_WB_GotoSeries,
+    input wire MEM_WB_BranchTaken,
     input wire [31: 0] MEM_WB_NPC,
     
     output reg [31: 0] IF_ID_IR,
@@ -17,7 +18,7 @@ module InstructionFetchStage(
 wire [31: 0] douta;
 
 InstructionMemory i0(
-    .addra(MEM_WB_GotoSeries ? MEM_WB_NPC[10: 2] : PC[10: 2]),
+    .addra((MEM_WB_GotoSeries || MEM_WB_BranchTaken) ? MEM_WB_NPC[10: 2] : PC[10: 2]),
     .clka(~clk),
     .dina(1'b0),
     .douta(douta),
@@ -32,7 +33,7 @@ always @(posedge rst or posedge clk) begin
         IF_ID_Bubble <= 0;
     end else begin
         IF_ID_IR <= douta;
-        IF_ID_NPC <= MEM_WB_GotoSeries ? MEM_WB_NPC + 4 : PC + 4;
+        IF_ID_NPC <= (MEM_WB_GotoSeries || MEM_WB_BranchTaken) ? MEM_WB_NPC + 4 : PC + 4;
         IF_ID_Bubble <= 0;
     end
 end

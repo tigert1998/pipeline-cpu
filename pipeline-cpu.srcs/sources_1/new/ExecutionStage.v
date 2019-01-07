@@ -22,6 +22,7 @@ module ExecutionStage(
     input wire ID_EX_GotoSeries,
     input wire [3: 0] ID_EX_ALUOperation,
     input wire [4: 0] ID_EX_WriteRegAddr,
+    input wire ID_EX_BranchTaken,
     
     input wire ID_EX_Bubble,
 
@@ -36,6 +37,7 @@ module ExecutionStage(
     output reg EX_MEM_WriteReg,
     output reg EX_MEM_MemToReg,
     output reg EX_MEM_GotoSeries,
+    output reg EX_MEM_BranchTaken,
     
     output reg EX_MEM_Bubble,
     
@@ -58,8 +60,10 @@ always @(posedge clk or posedge rst) begin
         EX_MEM_WriteMem <= 0;
         EX_MEM_WriteReg <= 0;
         EX_MEM_GotoSeries <= 0;
+        EX_MEM_BranchTaken <= 0;
         
         EX_MEM_Bubble <= 1;
+        
     end else begin
         EX_MEM_NPC <= ID_EX_NPC;
         EX_MEM_IR <= ID_EX_IR;
@@ -71,6 +75,7 @@ always @(posedge clk or posedge rst) begin
         EX_MEM_WriteReg <= ID_EX_WriteReg;
         EX_MEM_MemToReg <= ID_EX_MemToReg;
         EX_MEM_GotoSeries <= ID_EX_GotoSeries;
+        EX_MEM_BranchTaken <= ID_EX_BranchTaken;
         
         EX_MEM_Bubble <= 0;
     end

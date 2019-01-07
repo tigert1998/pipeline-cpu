@@ -15,6 +15,7 @@ module MemoryStage(
     input wire EX_MEM_WriteReg,
     input wire EX_MEM_MemToReg,
     input wire EX_MEM_GotoSeries,
+    input wire EX_MEM_BranchTaken,
     input wire EX_MEM_Bubble,
 
     // output pipeline registers
@@ -24,6 +25,7 @@ module MemoryStage(
     output reg MEM_WB_WriteReg,
     output reg [31: 0] MEM_WB_WriteData,
     output reg MEM_WB_GotoSeries,
+    output reg MEM_WB_BranchTaken,
     
     // special output
     output wire [31: 0] WriteData
@@ -46,6 +48,7 @@ always @(posedge clk or posedge rst) begin
     if (rst || EX_MEM_Bubble) begin
         MEM_WB_WriteReg <= 0;
         MEM_WB_GotoSeries <= 0;
+        MEM_WB_BranchTaken <= 0;
         
     end else begin
         MEM_WB_NPC <= EX_MEM_NPC;
@@ -54,6 +57,7 @@ always @(posedge clk or posedge rst) begin
         MEM_WB_WriteReg <= EX_MEM_WriteReg;
         MEM_WB_WriteData <= WriteData;
         MEM_WB_GotoSeries <= EX_MEM_GotoSeries;
+        MEM_WB_BranchTaken <= EX_MEM_BranchTaken;
     end
 end
 

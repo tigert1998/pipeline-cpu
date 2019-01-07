@@ -7,6 +7,7 @@ module ForwardControl(
     input wire [4: 0] rt,
     
     input wire ID_EX_GotoSeries,
+    input wire ID_EX_BranchTaken,
     input wire ID_EX_WriteReg,
     input wire ID_EX_MemToReg,
     input wire [4: 0] ID_EX_WriteRegAddr,
@@ -14,6 +15,7 @@ module ForwardControl(
     input wire [31: 0] ALUOutput,
     
     input wire EX_MEM_GotoSeries,
+    input wire EX_MEM_BranchTaken,
     input wire EX_MEM_WriteReg,
     input wire EX_MEM_MemToReg,
     input wire [4: 0] EX_MEM_WriteRegAddr,
@@ -28,10 +30,10 @@ module ForwardControl(
 
 wire need_check_ID_EX, need_check_EX_MEM;
 assign need_check_ID_EX = 
-    !ID_EX_GotoSeries && ID_EX_WriteReg && !ID_EX_MemToReg && !ID_EX_Bubble;
+    !(ID_EX_GotoSeries || ID_EX_BranchTaken) && ID_EX_WriteReg && !ID_EX_MemToReg && !ID_EX_Bubble;
     
 assign need_check_EX_MEM =
-    !EX_MEM_GotoSeries && EX_MEM_WriteReg && !EX_MEM_Bubble;
+    !(EX_MEM_GotoSeries || EX_MEM_BranchTaken) && EX_MEM_WriteReg && !EX_MEM_Bubble;
 
 wire [1: 0] rs_match_p, rt_match_p;
 assign rs_match_p =
